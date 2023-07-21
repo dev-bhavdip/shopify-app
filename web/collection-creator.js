@@ -42,25 +42,11 @@ export default async function collectionCreate(
   try {
     for (let i = 0; i < count; i++) {
 
-    fs.createReadStream("./collection.csv")   
-      .pipe(
-        parse({
-          delimiter: ",", 
-          columns: true,
-          ltrim: true,
-        })
-      )
-      .on("data", function (row) {
-        results.push(row);
-        // console.log(results[0]);
-      })
-      .on("end", function () {
+        const collectiondata = await readCSVFile()
 
-        const collection = results[Math.floor(Math.random() * results.length)];
+        const collection = collectiondata[Math.floor(Math.random() * collectiondata.length)];
 
-        // results.forEach((value, i) => {
-        //   console.log("data", value.title,"valu of i",i);
-                // if( i < DEFAULT_PRODUCTS_COUNT){
+
           client.query({
             data: {
               query: CREATE_PRODUCTS_MUTATION,
@@ -81,9 +67,8 @@ export default async function collectionCreate(
               },
             },
           });
-        // }
-        // });   
-      });
+       
+
     }
   } catch (error) {
     if (error instanceof GraphqlQueryError) {
@@ -96,12 +81,31 @@ export default async function collectionCreate(
   }
 }
 
-function randomTitle() {
-  const adjective = ADJECTIVES[Math.floor(Math.random() * ADJECTIVES.length)];
-  const noun = NOUNS[Math.floor(Math.random() * NOUNS.length)];
-  return `${adjective} ${noun}`;
+
+async function readCSVFile() {
+  const data_new = [];
+
+  return new Promise((resolve, reject) => {
+    fs.createReadStream("./collection.csv")
+      .pipe(
+        parse({
+          delimiter: ",",
+          columns: true,
+          ltrim: true,
+        })
+      )
+      .on("data", function (row) {
+        data_new.push(row);
+      })
+      .on("end", function () {
+        console.log("resolve",data_new[0]);
+        resolve(data_new);
+      })
+      .on("error", function (error) {
+        console.log("reject");
+        reject(error);
+      });
+  });
 }
 
-function randomPrice() {
-  return Math.round((Math.random() * 10 + Number.EPSILON) * 100) / 100;
-}
+

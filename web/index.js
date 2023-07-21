@@ -55,12 +55,19 @@ app.get("/api/products/create", async (_req, res) => {
   let error = null;
 
   try {
-    await productCreator(res.locals.shopify.session);
-    // await collectionCreate(res.locals.shopify.session); 
-    // await customerCreate(res.locals.shopify.session);
-    await orderCreator(res.locals.shopify.session);
-
-  } catch (e) {
+    console.log("try in ");
+    const customer =  await customerCreate(res.locals.shopify.session);
+    console.log("customer in index", customer);
+   const product = await productCreator(res.locals.shopify.session);
+   console.log("product in index",product); 
+  //  await collectionCreate(res.locals.shopify.session); 
+  
+  // setTimeout(async() => {
+  //   console.log("hello world");
+    await orderCreator(res.locals.shopify.session,2, customer,product);
+  // }, 1500); 
+ 
+  } catch (e) { 
     console.log(`Failed to process products/create: ${e.message}`);
     status = 500;  
     error = e.message;

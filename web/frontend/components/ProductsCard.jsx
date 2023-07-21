@@ -17,7 +17,7 @@ export function ProductsCard() {
     refetch: refetchProductCount,
     isLoading: isLoadingCount,
     isRefetching: isRefetchingCount,
-  } = useAppQuery({
+  } =  useAppQuery({
     url: "/api/products/count",
     reactQueryOptions: {
       onSuccess: () => {
@@ -33,7 +33,7 @@ export function ProductsCard() {
   const handlePopulate = async () => {
     setIsLoading(true);
     const response = await fetch("/api/products/create");
-
+console.log("response ==== ",response)
     if (response.ok) {
       await refetchProductCount();
       setToastProps({
@@ -64,7 +64,7 @@ export function ProductsCard() {
           loading: isLoading,
         }}
       >
-        <TextContainer spacing="loose">
+        <TextContainer spacing="loose"> 
           <p>{t("ProductsCard.description")}</p>
           <Text as="h4" variant="headingMd">
             {t("ProductsCard.totalProductsHeading")}
