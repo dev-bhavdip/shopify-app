@@ -1,0 +1,6 @@
+id,title,collection_desc,column,relation,condition,images
+1,Fair Product,Lorem ipsum dolor sit amet,VARIANT_COMPARE_AT_PRICE,LESS_THAN,50,http://dummyimage.com/126x100.png/ff4444/ffffff
+2,Sports,Lorem ipsum dolor sit amet,TAG,EQUALS,sports,http://dummyimage.com/112x100.png/5fa2dd/ffffff
+3,Food,Consectetur adipiscing elit,TAG,EQUALS,food,http://dummyimage.com/235x100.png/5fa2dd/ffffff
+4,Premium Product,Sed do eiusmod tempor incididunt,VARIANT_COMPARE_AT_PRICE,GREATER_THAN,200,http://dummyimage.com/217x100.png/ff4444/ffffff
+5,Technology,Lorem ipsum dolor sit amet,TAG,EQUALS,technology,http://dummyimage.com/239x100.png/ff4444/ffffff
